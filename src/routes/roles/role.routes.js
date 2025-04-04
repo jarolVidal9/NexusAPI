@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getRoles, getRolesById, createRole, updateRole, deleteRole } = require("../controllers/role.controller");
+const { getRoles, getRolesById, createRole, updateRole, deleteRole } = require("../../controllers/roles/role.controller");
 
 router.get("/", getRoles)
 router.get("/:id", getRolesById);

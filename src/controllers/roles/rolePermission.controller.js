@@ -1,10 +1,13 @@
-const RolePermission = require('../models/rolePermission.model');
+const Permission = require('../../models/roles/permission.model');
+const Resource = require('../../models/roles/resource.model');
+const Role = require('../../models/roles/role.model');
+const RolePermission = require('../../models/roles/rolePermission.model');
 
 // Get all resource permissions
 const getAllRolePermissions = async (req, res, next) => {
     try {
-        const permissions = await RolePermission.find();
-        res.status(200).json(permissions);
+        const permissions = await RolePermission.findAll();
+        res.json(permissions);
     } catch (error) {
         next(error);
     }
@@ -13,11 +16,8 @@ const getAllRolePermissions = async (req, res, next) => {
 // Get a single resource permission by ID
 const getRolePermissionById = async (req, res, next) => {
     try {
-        const permission = await RolePermission.findById(req.params.id);
-        if (!permission) {
-            return res.status(404).json({ message: 'Permission not found' });
-        }
-        res.status(200).json(permission);
+        const permission = await RolePermission.findByPk(req.params.id);
+        res.json(permission)    
     } catch (error) {
         next(error);
     }
@@ -28,7 +28,7 @@ const createRolePermission = async (req, res, next) => {
     const permission = new RolePermission(req.body);
     try {
         const newPermission = await permission.save();
-        res.status(201).json(newPermission);
+        res.json(newPermission);
     } catch (error) {
         next(error);
     }

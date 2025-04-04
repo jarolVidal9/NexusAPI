@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { login, refreshAccessToken,registerUser, profile, requestPasswordReset, passwordReset} = require("../../controllers/auth/auth.controller");
 const { authMiddleware } = require("../../middlewares/auth/auth.middleware");
-const { validateUser, validateLogin } = require("../../validators/auth/auth.validator");
+const { validateLogin } = require("../../validators/auth/auth.validator");
 
-router.post("/register", validateUser, registerUser);
+router.post("/register", registerUser);
 router.post("/login",validateLogin, login);
 router.post("/refresh-token", refreshAccessToken);
 router.get("/profile", authMiddleware ,profile);

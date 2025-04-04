@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getPermissions, getPermissionsById, createPermission, updatePermission,deletePermission } = require("../controllers/permission.controller");
+const { getPermissions, getPermissionsById, createPermission, updatePermission,deletePermission } = require("../../controllers/roles/permission.controller");
 
 router.get("/", getPermissions );
 router.get("/:id", getPermissionsById );
