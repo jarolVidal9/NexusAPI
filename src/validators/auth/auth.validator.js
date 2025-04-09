@@ -7,7 +7,7 @@ const validateUser = [
     body('email').notEmpty().withMessage('El email es requerido').bail()
         .isEmail().withMessage('El email no es válido').bail()
         .custom(async value => {
-            const user = await User.findOne({where: {email: value}});
+            const user = await User.findOne({where: {email: value.toLowerCase() }});
             if (user) { 
                 return Promise.reject('El email ya está en uso');
             };
@@ -27,7 +27,7 @@ const validateLogin = [
     body('email').notEmpty().withMessage('El email es requerido').bail()
         .isEmail().withMessage('El email no es válido').bail()
         .custom(async value => {
-            const user = await User.findOne({where: {email: value}});
+            const user = await User.findOne({where: {email: value.toLowerCase() }});
             if (!user) {
                 return Promise.reject('El email no está registrado');
             }
