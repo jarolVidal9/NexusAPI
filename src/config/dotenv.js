@@ -14,4 +14,5 @@ module.exports = {
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+    FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:4200",
 };

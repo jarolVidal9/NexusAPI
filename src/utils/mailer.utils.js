@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { EMAIL_USER, EMAIL_PASSWORD } = require('../config/dotenv');
+const { EMAIL_USER, EMAIL_PASSWORD, FRONTEND_URL } = require('../config/dotenv');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -30,7 +30,7 @@ const sendMailRecoveryPassword = async (to, token) => {
             <div style="font-family: Arial, sans-serif; text-align: center; color: #333;">
             <h1 style="color: #4CAF50;">Recuperación de contraseña</h1>
             <p style="font-size: 16px;">Para recuperar tu contraseña, haz click en el siguiente enlace:</p>
-            <a href="http://localhost:3000/reset-password/${token}" style="display: inline-block; padding: 10px 20px; margin-top: 20px; font-size: 16px; color: #fff; background-color: #4CAF50; text-decoration: none; border-radius: 5px;">Recuperar contraseña</a>
+            <a href="${FRONTEND_URL}/reset-password/${token}" style="display: inline-block; padding: 10px 20px; margin-top: 20px; font-size: 16px; color: #fff; background-color: #4CAF50; text-decoration: none; border-radius: 5px;">Recuperar contraseña</a>
             <p style="margin-top: 20px; font-size: 14px; color: #777;">Si no solicitaste este cambio, puedes ignorar este correo.</p>
             </div>
         `;
