@@ -40,4 +40,5 @@ const sendMailRecoveryPassword = async (to, token) => {
     }
 }
 
+
 module.exports = {sendMail, sendMailRecoveryPassword};

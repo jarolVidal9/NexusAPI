@@ -93,40 +93,59 @@ const requestPasswordReset = async (req, res, next) => {
         //send email
         await sendMailRecoveryPassword(user.email, resetToken);
         res.json({ message: 'Se ha enviado un correo para restablecer la contraseña' });
-    } catch (err) {
+        } catch (err) {
         next(err);
-    }
-};
+        }
+    };
 
-const passwordReset = async (req, res, next) => {
-    try {
-        const { token } = req.params;
-        const { password } = req.body;
-        if (token == null || token == undefined) {
-            return res.status(400).json({
-                errors: [{ msg: 'Token requerido' }]
-            });
+    const passwordReset = async (req, res, next) => {
+        try {
+            const { token } = req.params;
+            const { password } = req.body;
+
+            if (!token) {
+                return res.status(400).json({
+                    errors: [{ msg: 'El enlace para restablecer la contraseña es inválido o falta el token.' }]
+                });
+            }
+            if (!password) {
+                return res.status(400).json({
+                    errors: [{ msg: 'Por favor ingresa una nueva contraseña.' }]
+                });
+            }
+
+            let decoded;
+            try {
+                decoded = jwt.verify(token, JWT_SECRET);
+            } catch (err) {
+                return res.status(400).json({
+                    errors: [{ msg: 'El enlace para restablecer la contraseña ha expirado o no es válido. Solicita uno nuevo.' }]
+                });
+            }
+
+            const user = await User.findByPk(decoded.id);
+
+            if (
+                !user ||
+                user.resetToken !== token ||
+                !user.resetTokenExpiration ||
+                user.resetTokenExpiration < Date.now() ||
+                !user.resetToken
+            ) {
+                return res.status(400).json({
+                    errors: [{ msg: 'El enlace para restablecer la contraseña ya fue utilizado, expiró o no es válido. Solicita uno nuevo.' }]
+                });
+            }
+
+            user.password = password;
+            user.resetToken = null;
+            user.resetTokenExpiration = null;
+            await user.save();
+
+            res.json({ message: 'Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión con tu nueva contraseña.' });
+        } catch (err) {
+            next(err);
         }
-        if (password == null || password == undefined) {
-            return res.status(400).json({
-                errors: [{ msg: 'Contraseña requerida' }]
-            });
-        }
-        const decoded = jwt.verify(token, JWT_SECRET);
-        const user = await User.findByPk(decoded.id);
-        if (!user) {
-            return res.status(400).json({
-                errors: [{ msg: 'Usuario no encontrado' }]
-            });
-        }
-        user.password = password;
-        user.resetToken = null;
-        user.resetTokenExpiration = null;
-        await user.save();
-        res.json({ message: 'Contraseña restablecida correctamente' });
-    } catch (err) {
-        next(err);
-    }
 };
 
 module.exports = {
