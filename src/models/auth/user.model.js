@@ -10,6 +10,27 @@ const User = sequelize.define('User', {
         defaultValue: () => uuidv4(),
         primaryKey: true
     },
+    img:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    username:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    birthday: {
+        type: DataTypes.DATEONLY, // Cambiado a DATEONLY para solo año, mes, día
+        allowNull: true
+    },
+    gender: {
+        type: DataTypes.ENUM('hombre', 'mujer', 'otro'),
+        allowNull: true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
