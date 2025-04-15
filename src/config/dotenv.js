@@ -15,4 +15,5 @@ module.exports = {
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
     FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:4200",
+    CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:4200",
 };
