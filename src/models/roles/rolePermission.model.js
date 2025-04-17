@@ -13,26 +13,26 @@ const RolePermission = sequelize.define('RolePermission', {
     roleId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: Role,
-            key: 'id'
-        }
+        // references: {
+        //     model: Role,
+        //     key: 'id'
+        // }
     },
     permissionId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: Permission,
-            key: 'id'
-        }
+        // references: {
+        //     model: Permission,
+        //     key: 'id'
+        // }
     },
     resourceId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: Resource,
-            key: 'id'
-        }
+        // references: {
+        //     model: Resource,
+        //     key: 'id'
+        // }
     }
 }, {
     timestamps: false,
@@ -43,13 +43,4 @@ const RolePermission = sequelize.define('RolePermission', {
         }
     ]
 });
-
-// Relación muchos a muchos entre Role y Permission con Resource
-Role.belongsToMany(Permission, { through: RolePermission, foreignKey: 'roleId' });
-Permission.belongsToMany(Role, { through: RolePermission, foreignKey: 'permissionId' });
-
-// Relación entre RolePermission y Resource
-Resource.hasMany(RolePermission, { foreignKey: 'resourceId', onDelete: 'CASCADE' });
-RolePermission.belongsTo(Resource, { foreignKey: 'resourceId' });
-
 module.exports = RolePermission;

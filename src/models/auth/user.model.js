@@ -3,6 +3,7 @@ const sequelize = require('../../config/database');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcryptjs');
 const Role = require('../roles/role.model');
+const Goal = require('../goal/goal.model');
 
 const User = sequelize.define('User', {
     id:{
@@ -51,7 +52,15 @@ const User = sequelize.define('User', {
     resetTokenExpiration: {
         type: DataTypes.DATE,
         allowNull: true
-    }
+    },
+    roleId: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+        // references: {
+        //     model: Role,
+        //     key: 'id'
+        // }
+    },
 }, {
     hooks: {
         beforeCreate: async (user) => {
@@ -66,6 +75,5 @@ const User = sequelize.define('User', {
         }
     }
 });
-User.belongsTo(Role, {foreignKey: 'roleId'});
 
 module.exports = User;
