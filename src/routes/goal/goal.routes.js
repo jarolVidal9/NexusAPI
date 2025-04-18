@@ -4,8 +4,8 @@ const { getGoals, createGoal, updateGoal, deleteGoal, getGoalById } = require('.
 
 router.get('/',getGoals)
 router.post('/',createGoal)
-router.put('/',updateGoal)
-router.delete('/',deleteGoal)
+router.put('/:id',updateGoal)
+router.delete('/:id',deleteGoal)
 router.get('/:id',getGoalById)
 
 module.exports = router

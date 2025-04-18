@@ -27,7 +27,7 @@ const Goal = sequelize.define('Goal',{
         allowNull: true,
     },
     dueDate:{
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
     },
     order:{
