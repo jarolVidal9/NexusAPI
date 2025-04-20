@@ -1,8 +1,6 @@
 const {DataTypes} = require('sequelize');
 const sequelize = require('../../config/database');
 const { v4: uuidv4 } = require('uuid');
-const User = require('../auth/user.model');
-const GoalCategory = require('./goalCategory.model');
 
 const Goal = sequelize.define('Goal',{
     id:{
@@ -36,12 +34,12 @@ const Goal = sequelize.define('Goal',{
     },
     priority:{
         type: DataTypes.ENUM('baja', 'media', 'alta'),
-        allowNull: true,
+        allowNull: false,
     },
     state:{
-        type: DataTypes.ENUM('nueva','en proceso', 'completada', 'cancelada'),
+        type: DataTypes.ENUM('pendiente','proceso', 'completada', 'cancelada', 'vencida'),
         allowNull: true,
-        defaultValue: 'nueva',
+        defaultValue: 'pendiente',
     },
     progress:{
         type: DataTypes.INTEGER,
@@ -59,7 +57,8 @@ const Goal = sequelize.define('Goal',{
     img:{
         type: DataTypes.STRING,
         allowNull: true,
-    }
+    },
+    
 })
 module.exports = Goal;
 
