@@ -6,6 +6,7 @@ const Resource = require('./roles/resource.model');
 const RolePermission = require('./roles/rolePermission.model');
 const Goal = require('./goal/goal.model');
 const GoalCategory = require('./goal/goalCategory.model');
+const Note = require('./note/note.model');
 
 //Definir las relaciones entre los modelos
 
@@ -34,6 +35,10 @@ GoalCategory.belongsTo(User, {foreignKey: 'userId'});
 GoalCategory.hasMany(Goal, {foreignKey: 'goalCategoryId'});
 Goal.belongsTo(GoalCategory, {foreignKey: 'goalCategoryId'});
 
+// Note -> User
+User.hasMany(Note, {foreignKey: 'userId'});
+Note.belongsTo(User, {foreignKey: 'userId'});
+
 
 module.exports = {
     User,
@@ -42,5 +47,6 @@ module.exports = {
     Resource,
     RolePermission,
     Goal,
-    GoalCategory
+    GoalCategory,
+    Note
 }
