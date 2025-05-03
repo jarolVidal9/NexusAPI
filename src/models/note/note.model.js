@@ -24,18 +24,18 @@ const Note = sequelize.define('Note',{
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    color:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
     content:{
-        type: DataTypes.JSONB,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     img:{
         type: DataTypes.STRING,
         allowNull: true,
-    }
+    },
+    tags:{
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+    },
 })
 
 module.exports = Note;
