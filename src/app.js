@@ -9,6 +9,7 @@ const userRoutes = require('./routes/user.routes');
 const goalRoutes = require('./routes/goal/goal.routes');
 const goalCategoryRoutes = require('./routes/goal/goalCategory.routes');
 const noteRoutes = require('./routes/note/note.routes');
+const movementRoutes = require('./routes/finance/movement.routes');
 const errorHandler = require('./middlewares/errorHandler');
 const notFoundHandler = require('./middlewares/notFoundHandler');
 const { authMiddleware } = require('./middlewares/auth/auth.middleware');
@@ -52,6 +53,8 @@ app.use("/api/user", authMiddleware, userRoutes);
 app.use('/api/goal', authMiddleware, goalRoutes);
 app.use('/api/goalcategory', authMiddleware, goalCategoryRoutes);
 
+//movement routes
+app.use('/api/movement', authMiddleware, movementRoutes);
 
 //note routes
 app.use('/api/note', authMiddleware, noteRoutes);
